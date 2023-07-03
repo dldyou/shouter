@@ -55,5 +55,6 @@ button {
 
 footer {
    width: 100%;
-    background-color: burlywood;
+   height: 50px;
+    background-color: lightyellow;
 }
