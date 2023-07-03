@@ -10,7 +10,7 @@ header {
     position: fixed;
     height: 80px;
     width: 100%;
-    top:0;
+    top: 0;
     z-index: 1;
     background-color: salmon;
 }
@@ -28,7 +28,7 @@ header {
 
 #file-name {
     text-align: center;
-    font-size:30px;
+    font-size: 30px;
     text-decoration-line: underline;
 }
 
@@ -38,12 +38,13 @@ header {
 }
 
 #progress-box {
-    height:100px;
+    height: 100px;
     width: auto;
     border: 1px dotted;
 }
 
 progress {
+    display: block;
     height: 30px;
     width: 300px;
     margin: 0 auto;
@@ -59,7 +60,7 @@ button {
 }
 
 footer {
-   width: 100%;
-   height: 50px;
+    width: 100%;
+    height: 50px;
     background-color: lightyellow;
 }
