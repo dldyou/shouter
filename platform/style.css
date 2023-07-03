@@ -51,6 +51,11 @@ progress {
 
 button {
     display: none;
+    margin: 0 auto;
+}
+
+#upload-btn {
+    display: block;
 }
 
 footer {
