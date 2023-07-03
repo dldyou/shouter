@@ -1,3 +1,59 @@
 * {
     
 }
+
+body {
+    background-color: lightcyan;
+}
+
+header {
+    position: fixed;
+    height: 80px;
+    width: 100%;
+    top:0;
+    z-index: 1;
+    background-color: salmon;
+}
+
+#wrapper {
+    margin-top: 80px;
+    background-color: white;
+}
+
+#upload-box {
+    height: 200px;
+    width: auto;
+    border: 2px solid;
+}
+
+#file-name {
+    text-align: center;
+    font-size:30px;
+    text-decoration-line: underline;
+}
+
+#file-len {
+    text-align: center;
+    font-size:20px;
+}
+
+#progress-box {
+    height:100px;
+    width: auto;
+    border: 1px dotted;
+}
+
+progress {
+    height: 30px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+button {
+    display: none;
+}
+
+footer {
+   width: 100%;
+    background-color: burlywood;
+}
