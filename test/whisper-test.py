@@ -1,12 +1,14 @@
 import whisper as ws
 import os
 
-print(os.getcwd())
+# print(os.getcwd())
+filename = 'test2.m4a'
+path = os.path.dirname(os.path.realpath(__file__)) + '\\' + filename
 
 model = ws.load_model("base")
 
 #이걸 구해야 할건디,,,,
-audio = ws.load_audio('C:\\Code\\shouter\\shouter\\shouter\\test\\test2.m4a')
+audio = ws.load_audio(path)
 audio = ws.pad_or_trim(audio)
 
 mel = ws.log_mel_spectrogram(audio).to(model.device)
