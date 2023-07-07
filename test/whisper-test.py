@@ -2,11 +2,7 @@ import whisper as ws
 import os
 
 # print(os.getcwd())
-def start(filename):
-    path = os.path.dirname(os.path.realpath(__file__)) + '\\' + filename
-    
-    if (not os.path.isfile(path)):
-        return
+def start(path):
     
     model = ws.load_model("medium")
 
@@ -34,5 +30,11 @@ def start(filename):
         
 idx = 0
 while (True):
-    start(f'audio{idx}.mp3')
+    filename = f'audio{idx}.mp3'
+    path = os.path.dirname(os.path.realpath(__file__)) + '\\' + filename
+    
+    if (not os.path.isfile(path)):
+        break
+    
+    start(path)
     idx += 1
