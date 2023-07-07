@@ -17,6 +17,12 @@ _, probs = model.detect_language(mel)
 print(f'Detected language: {max(probs, key=probs.get)}')
 
 options = ws.DecodingOptions(fp16 = False)
-result = ws.decode(model, mel, options)
+# result = ws.decode(model, mel, options)
+result = model.transcribe(audio)
 
-print(result.text)
+#print(type(result))
+# print(result['segments'])
+
+for data in result['segments']:
+    print(data)
+
