@@ -9,6 +9,7 @@ timing = 20 * sec
 interpolation_timing = 5 * sec
 
 def trim():
+    global timing, interpolation_timing
     filename = 'audio.mp3'
     standard_path = os.path.dirname(os.path.realpath(__file__)) + '\\'
 

@@ -14,6 +14,7 @@ final_result = []
 model = ws.load_model("medium")
 # print(os.getcwd())
 def start(path):
+    global model
     # 오디오 불러오기 및 trim 진행
     audio = ws.load_audio(path)
     audio = ws.pad_or_trim(audio)
@@ -42,6 +43,7 @@ def start(path):
     return ret
 
 def task():
+    global cnt, result
     while (True): 
         filename = f'audio{cnt}.mp3'
         path = os.path.dirname(os.path.realpath(__file__)) + '\\' + filename
@@ -54,6 +56,7 @@ def task():
         cnt += 1
         
 def merge():
+    global cnt, result, final_result
     boundary_index = 0
     for i in range(cnt):
         if (i == cnt - 1):
@@ -79,9 +82,8 @@ def merge():
         print(data)
         
 def main():
-    # os.environ['KMP_DUPLICATE_LIB_OK']='True'
-    trim.trim()
     extract.extract()
+    trim.trim()
     task()
     merge()
             
