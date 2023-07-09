@@ -14,6 +14,7 @@ final_result = []
 model = ws.load_model("medium")
 # print(os.getcwd())
 def start(path):
+    global model
     # 오디오 불러오기 및 trim 진행
     audio = ws.load_audio(path)
     audio = ws.pad_or_trim(audio)
@@ -42,6 +43,7 @@ def start(path):
     return ret
 
 def task():
+    global cnt, result
     while (True): 
         filename = f'audio{cnt}.mp3'
         path = os.path.dirname(os.path.realpath(__file__)) + '\\' + filename
@@ -54,34 +56,21 @@ def task():
         cnt += 1
         
 def merge():
-    boundary_index = 0
+    global cnt, result, final_result
     for i in range(cnt):
-        if (i == cnt - 1):
-            final_result.append(result[i][boundary_index:])
+        start_time = result[i][-1][0]
+        if (trim.timing - start_time <= 0.2):
+            final_result.append(result[i][:-1])
         else:
-            final_result.append(result[i][boundary_index:sz - 1])
-        # get size
-        sz = len(result[i])
-        # check last sentence
-        last_sentence = result[i][sz - 1]
-        start_time, end_time, text = last_sentence
-        
-        # find boundary
-        for idx, sentence in enumerate(result[i + 1]):
-            # if start time is same
-            if (start_time - trim.timing == sentence[0]):
-                boundary_index = idx
-                print(f'boundary at {sentence[0]} ~ {sentence[1]}: {sentence[2]}')
-                break
+            final_result.append(result[i])
     
     # print result
     for data in final_result:
         print(data)
         
 def main():
-    # os.environ['KMP_DUPLICATE_LIB_OK']='True'
-    trim.trim()
     extract.extract()
+    trim.trim()
     task()
     merge()
             
