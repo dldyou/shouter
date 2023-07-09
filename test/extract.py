@@ -1,6 +1,7 @@
 import os
 import moviepy.editor as mp
 
+# Extract MP3 file at MP4 file
 def extract():
     video = 'sample.mp4'
     audio = 'audio.mp3'

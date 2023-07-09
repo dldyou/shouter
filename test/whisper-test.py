@@ -57,25 +57,12 @@ def task():
         
 def merge():
     global cnt, result, final_result
-    boundary_index = 0
     for i in range(cnt):
-        if (i == cnt - 1):
-            final_result.append(result[i][boundary_index:])
+        start_time = result[i][-1][0]
+        if (20 - start_time <= 0.2):
+            final_result.append(result[i][:-1])
         else:
-            final_result.append(result[i][boundary_index:sz - 1])
-        # get size
-        sz = len(result[i])
-        # check last sentence
-        last_sentence = result[i][sz - 1]
-        start_time, end_time, text = last_sentence
-        
-        # find boundary
-        for idx, sentence in enumerate(result[i + 1]):
-            # if start time is same
-            if (start_time - trim.timing == sentence[0]):
-                boundary_index = idx
-                print(f'boundary at {sentence[0]} ~ {sentence[1]}: {sentence[2]}')
-                break
+            final_result.append(result[i])
     
     # print result
     for data in final_result:
