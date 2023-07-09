@@ -2,6 +2,7 @@ import whisper as ws
 import trim
 import extract
 import os
+import torch
 
 # result of tasks
 result = []
@@ -11,7 +12,8 @@ cnt = 0
 final_result = []
 
 # get model
-model = ws.load_model("medium")
+sel_model = "medium"
+model = ws.load_model(sel_model)
 # print(os.getcwd())
 def start(path):
     global model
@@ -80,8 +82,29 @@ def merge():
     # print result
     for data in final_result:
         print(data)
+
+def checkGPU(model):
+    # model capabilities
+    model_capability = {'tiny': 0.9, 'base': 0.9, 'small': 1.9, 'medium': 4.9, 'large': 9.9}
+    
+    device_count = torch.cuda.device_count()
+    capability = 0
+    
+    # get highest capability
+    for i in range(device_count):
+        device = torch.device(f'cuda:{i}')
+        print(f'Device {i}: {torch.cuda.get_device_name(device)}')
+        if (capability < torch.cuda.get_device_properties(device).total_memory / 1024**3):
+            capability = torch.cuda.get_device_properties(device).total_memory / 1024**3
+    
+    # check GPU is available
+    if (model_capability[model] > capability):
+        print("Can\'t find available device")
+        os.environ["CUDA_VISIBLE_DEVICES"] = ""    
+
         
 def main():
+    checkGPU(sel_model)
     extract.extract()
     trim.trim()
     task()
