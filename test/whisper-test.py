@@ -59,7 +59,7 @@ def merge():
     global cnt, result, final_result
     for i in range(cnt):
         start_time = result[i][-1][0]
-        if (20 - start_time <= 0.2):
+        if (trim.timing - start_time <= 0.2):
             final_result.append(result[i][:-1])
         else:
             final_result.append(result[i])
