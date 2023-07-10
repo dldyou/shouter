@@ -104,7 +104,7 @@ def checkGPU(model):
 
         
 def main():
-    checkGPU(sel_model)
+    # checkGPU(sel_model)
     extract.extract()
     trim.trim()
     task()
