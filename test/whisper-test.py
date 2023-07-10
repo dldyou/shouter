@@ -2,6 +2,7 @@ import whisper as ws
 import trim
 import extract
 import os
+import torch
 
 # result of tasks
 result = []
@@ -11,7 +12,8 @@ cnt = 0
 final_result = []
 
 # get model
-model = ws.load_model("medium")
+sel_model = "medium"
+model = ws.load_model(sel_model)
 # print(os.getcwd())
 def start(path):
     global model
@@ -67,6 +69,9 @@ def merge():
     # print result
     for data in final_result:
         print(data)
+
+
+
         
 def main():
     extract.extract()
