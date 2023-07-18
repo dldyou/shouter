@@ -1,28 +1,33 @@
+import findspark
+findspark.init()
+
+import hdfs
 import extract
 import trim
 import pyspark
+import os
+from pyspark import SparkFiles
 from pyspark.sql import SparkSession
-import findspark
+from hdfs import InsecureClient
 
 def file_processing():
     # trim file
     extract.extract()
     trim.trim()
     
-    # upload to hdfs
-    spark = SparkSession.builder.getOrCreate()
-
+    #defines
     filename = 'audio0.mp3'
-    spark.sparkContext.addFile(f'./{filename}')
-    tmp_path = spark.SparkFiles.get(filename)
-    
-    dataframe = spark.createDataFrame([tmp_path, None], ["path", "data"])
-    dataframe.write.mode("overwrite").format("binaryFile").option("path", f'hdfs://localhost:19000/data/{filename}').save()
+    filepath = os.path.dirname(os.path.realpath(__file__)) + '/' + filename
+    hdfs_port = '9870'
+    hdfs_url = f'http://localhost:{hdfs_port}'    
 
+    # upload to hdfs
+    # spark = SparkSession.builder.getOrCreate()
+    hdfs_client = InsecureClient(hdfs_url)
+    hdfs_client.upload("/data/", filepath, overwrite=True)
 
-    # audio_data = spark.sparkContext.binaryFiles('./audio0.mp3').first()[1]
-    # dataframe = spark.createDataFrame(["hdfs://localhost:19000/data/audio0.mp3", audio_data], ["path", "data"])
-    
-    # dataframe.write.mode("overwrite").format("binaryFile").option("path", "hdfs://localhost:19000/data/audio0.mp3").save()
+    #check upload status
+    upload_stat = hdfs_client.status(f'/data/{filename}')
+    print(upload_stat)
 
 file_processing()
