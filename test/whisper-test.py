@@ -1,6 +1,7 @@
 import whisper as ws
 import trim
 import extract
+import upload
 import os
 import torch
 
@@ -74,8 +75,7 @@ def merge():
 
         
 def main():
-    extract.extract()
-    trim.trim()
+    upload.file_processing()
     task()
     merge()
             
