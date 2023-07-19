@@ -70,6 +70,7 @@ def process_audio_file(hdfs_path):
     # get result
     path = os.path.dirname(os.path.realpath(__file__)) + '\\' + filename
     result.append(get_subtitle(path))
+    return hdfs_path
 
 def main():
     # configuration spark API
@@ -83,7 +84,6 @@ def main():
     audio_files_rdd = sctx.parallelize(audio_files)
     # Map (apply subtitle.get_subtitle() for every audio{n}.mp3 files)
     result_rdd = audio_files_rdd.map(process_audio_file)
-    print(result_rdd)
     # Reduce (collect results)
     results = result_rdd.collect()
     # transform to subtitle file form
