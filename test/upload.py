@@ -40,5 +40,3 @@ def file_processing():
         print(upload_stat)
         
         cnt += 1
-
-file_processing()
