@@ -1,10 +1,11 @@
 import upload
+import hdfsPath as hp
 
 def main():
     # file upload to hdfs like audio0.mp3, audio1.mp3, ..., audio{n}.mp3
     upload.file_processing()
     # file read from hdfs 
-
+    audio_files = hp.get_path()
     # set RDD 
     
     # Map (apply subtitle.get_subtitle() for every audio{n}.mp3 files)
