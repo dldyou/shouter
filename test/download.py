@@ -2,7 +2,7 @@ import os
 from hdfs import InsecureClient
 from hdfs import HdfsError
 
-def download(filename):
+def download_audio(filename):
     hdfs_port = '9870'
     hdfs_url = f'http://localhost:{hdfs_port}'    
     filepath = os.path.dirname(os.path.realpath(__file__))
@@ -17,5 +17,3 @@ def download(filename):
             print(f'File download Succesfully ({filename})')
     except HdfsError as e:
         print(str(e))
-
-download('audio3.mp3')

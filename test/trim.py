@@ -17,3 +17,5 @@ def trim():
     for i in range(math.ceil(len(audio) / timing)):
         part_audio = audio[timing * i:timing * (i + 1)]
         part_audio.export(standard_path + f'audio{i}.mp3')
+        # print current export audio name
+        print(f'audio{i}.mp3 file')
