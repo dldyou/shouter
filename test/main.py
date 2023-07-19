@@ -1,3 +1,5 @@
+import findspark
+findspark.init() 
 from pyspark import SparkConf, SparkContext
 import upload
 import task
@@ -5,7 +7,7 @@ import hdfsPath as hp
 
 def main():
     # configuration spark API
-    conf = SparkConf().setAppName("Shouter").setMaster("yarn")
+    conf = SparkConf().setAppName("Shouter").setMaster("local")
     sctx = SparkContext(conf = conf)
     # file upload to hdfs like audio0.mp3, audio1.mp3, ..., audio{n}.mp3
     upload.file_processing()
