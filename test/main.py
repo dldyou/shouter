@@ -2,7 +2,7 @@ import findspark
 findspark.init() 
 from pyspark import SparkConf, SparkContext
 import upload
-import task
+import task_file
 import hdfsPath as hp
 
 def main():
@@ -16,7 +16,7 @@ def main():
     # set RDD 
     audio_files_rdd = sctx.parallelize(audio_files)
     # Map (apply subtitle.get_subtitle() for every audio{n}.mp3 files)
-    result_rdd = audio_files_rdd.map(task.process_audio_file)
+    result_rdd = audio_files_rdd.map(task_file.process_audio_file)
     print(result_rdd)
     # Reduce (collect results)
     results = result_rdd.collect()
