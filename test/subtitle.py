@@ -5,7 +5,7 @@ def get_subtitle(path):
     sel_model = "medium"
     model = ws.load_model(sel_model)
     
-    # 오디오 불러오기 및 trim 진행
+    # get audio and trim it
     audio = ws.load_audio(path)
     audio = ws.pad_or_trim(audio)
 
@@ -15,12 +15,9 @@ def get_subtitle(path):
     print(f'Detected language: {max(probs, key=probs.get)}')
 
     options = ws.DecodingOptions(fp16 = False)
-    # result = ws.decode(model, mel, options)
     result = model.transcribe(audio)
-
-    #print(type(result))
-    # print(result['segments'])
     
+    # get result
     ret = []
     for data in result['segments']:
         start_time = round(data['start'], 2)
@@ -29,5 +26,6 @@ def get_subtitle(path):
         ret.append([start_time, end_time, text])
         
         print(f'{start_time} ~ {end_time}: {text}')
-        
+    
+    # return result
     return ret
