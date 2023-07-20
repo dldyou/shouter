@@ -4,6 +4,7 @@ from pyspark import SparkConf, SparkContext
 import whisper as ws
 import upload
 import hdfsPath
+import merge
 import os
 from hdfs import InsecureClient
 from hdfs import HdfsError
@@ -87,6 +88,7 @@ def main():
     result_rdd = audio_files_rdd.map(process_audio_file)
     # Reduce (collect results)
     results = result_rdd.collect()
+    results = merge.merge_audio(results, len(audio_files))
     print(results)
     # transform to subtitle file form
     
