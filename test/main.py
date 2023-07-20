@@ -8,8 +8,8 @@ import os
 from hdfs import InsecureClient
 from hdfs import HdfsError
 
-# result of task
-result = []
+# progress in MAP
+###########################################################################
 
 # get title for mp3 file
 def get_subtitle(path):
@@ -69,8 +69,9 @@ def process_audio_file(hdfs_path):
     download_audio(filename)
     # get result
     path = os.path.dirname(os.path.realpath(__file__)) + '\\' + filename
-    result.append(get_subtitle(path))
-    return hdfs_path
+    return get_subtitle(path)
+
+###########################################################################
 
 def main():
     # configuration spark API
@@ -86,6 +87,7 @@ def main():
     result_rdd = audio_files_rdd.map(process_audio_file)
     # Reduce (collect results)
     results = result_rdd.collect()
+    print(results)
     # transform to subtitle file form
     
     # start download subtitle file
