@@ -33,8 +33,8 @@ def get_subtitle(path):
     # get result
     ret = []
     for data in result['segments']:
-        start_time = round(data['start'], 2)
-        end_time = round(data['end'], 2)
+        start_time = round(data['start'], 3)
+        end_time = round(data['end'], 3)
         text = data['text']
         ret.append([start_time, end_time, text])
         
