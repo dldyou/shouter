@@ -5,6 +5,7 @@ import whisper as ws
 import upload
 import hdfsPath
 import merge
+import transform
 import os
 from hdfs import InsecureClient
 from hdfs import HdfsError
@@ -15,7 +16,7 @@ from hdfs import HdfsError
 # get title for mp3 file
 def get_subtitle(path):
     # get model
-    sel_model = "medium"
+    sel_model = "tiny"
     model = ws.load_model(sel_model)
     
     # get audio and trim it
@@ -89,9 +90,9 @@ def main():
     # Reduce (collect results)
     results = result_rdd.collect()
     results = merge.merge_audio(results, len(audio_files))
-    print(results)
+    print(results, end="\n\n")
     # transform to subtitle file form
-    
+    print(transform.list_to_srt(results))
     # start download subtitle file
     
 if __name__ == '__main__':
