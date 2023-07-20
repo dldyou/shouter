@@ -14,8 +14,8 @@ def list_to_srt(result):
     srt = ""
     for i, sentence in enumerate(result):
         start_time = format_time(sentence[0])
-        end_time = format_time(sentence[0])
-        text = sentence[1]
+        end_time = format_time(sentence[1])
+        text = sentence[2]
         
         srt += str(i + 1) + "\n" + start_time + " --> " + end_time + "\n" + text + "\n\n"
     return srt
