@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def main(req):
-    return render(req, 'index.html')
+    return render(req, 'index.html', status=200)
