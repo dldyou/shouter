@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from mainpage import views as mainpage
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('mainpage/', mainpage.main, name='mainpage')
 ]
