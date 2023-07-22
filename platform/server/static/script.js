@@ -1,9 +1,33 @@
-const uploadBtn =$("#upload-btn")[0];
-uploadBtn.addEventListener("change", handleFiles);
+const fileloadBtn = $("#fileload-btn")[0];
+const serverloadBtn = $("#upload-btn")[0]; // button for server
+const fileName = $("#file-name");
 
-function handleFiles()
+function changeFileBox()
 {
-  console.log($("#upload-btn")[0].files[0]);
-  $("#file-name").text(uploadBtn.files[0].name);
-  //$("#file-len").text(uploadBtn.files[0].size); 
+  fileName.text(fileloadBtn.files[0].name);
 }
+
+function uploadFile(){
+
+  var form = fileloadBtn.files[0];
+  var formData = new FormData(form);
+
+  const req = $.ajax({
+    type:"POST",
+    url: "/upload",
+    processData: false,
+    contentType: false,
+    data: formData,
+    success: function(rtn){
+      console.log("rtn: ", rtn)
+    },
+    err: function(err){
+      console.log("err:", err)
+    }
+  })
+}
+
+$(document).ready(() => {
+  fileloadBtn.addEventListener("change", changeFileBox);
+  serverloadBtn.addEventListener("click", uploadFile);
+});
