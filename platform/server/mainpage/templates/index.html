@@ -1,11 +1,46 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>
-            index
-        </title>
-    </head>
-    <body>
-        hello world!
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script defer src="./script.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <img id="title" src="" alt="TITLE">
+    </header>
+    <div id="wrapper">
+        <div id="upload-box">
+            <div id="file-box">
+                <div id="file-name">
+                    standard.mp4
+                </div>
+                <div id="file-len">
+                    00:00:00
+                </div>
+            </div>
+        </div>
+        <div id="progress-box">
+            <form action="selectLang">
+                <label for="lang">Language</label>
+                <select name="languages" id="lang">
+                  <option value="Eng">Eng</option>
+                  <option value="Kor">Kor</option>
+                </select>
+              </form>
+            <input type="file" id="upload-btn" accept='.m4a' />
+            <button id="upload-btn">UPLOAD : send to server</button>
+            <button id="start-btn">ADD CAPTIONS</button>
+            <button id="download-btn">DOWNLOAD</button>
+
+            <progress id="progress-bar" value="0" max="100"></progress>
+        </div>
+    </div>
+    <footer>
+
+    </footer>
 </html>
