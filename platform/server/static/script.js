@@ -10,7 +10,7 @@ function changeFileBox()
 function uploadFile(){
 
   var form = fileloadBtn.files[0];
-  var formData = new FormData(form);
+  var formData = new FormData(form[0]);
 
   const req = $.ajax({
     type:"POST",

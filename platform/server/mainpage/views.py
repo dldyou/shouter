@@ -12,7 +12,7 @@ def main(req):
 
 def recvFile(req):
     # Receive file
-    if req.method == 'POST' and req.FILES['file']:
+    if req.method == 'POST' and req.FILES.get('file'):
         file = req.FILES.get('file')
         file_prop = file.name.split('.')[-1].lower()
         if file_prop not in ALLOWED_FILE_PROP:
@@ -31,4 +31,4 @@ def recvFile(req):
 
         return HttpResponse("OK", status=200)
     else:
-        return HttpResponse(status=418, reason='Unsupported Media type')
+        return HttpResponse(status=418)
