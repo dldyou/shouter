@@ -12,23 +12,23 @@ def main(req):
 
 def recvFile(req):
     # Receive file
-    if req.method == 'POST' and req.FILES['File']:
-        file = req.FILES.get('File')
+    if req.method == 'POST' and req.FILES['file']:
+        file = req.FILES.get('file')
         file_prop = file.name.split('.')[-1].lower()
         if file_prop not in ALLOWED_FILE_PROP:
             return HttpResponse(status=415, reason='Unsupported Media type')
         # uploaded_file = UploadedFile.objects.create(file=file)
 
     # Save file        
-        file_path = os.path.join(settings.BASE_DIR, '../../test/sample.mp4')
+        file_path = os.path.join(settings.BASE_DIR, '../../test/sample2.mp4')
         with open(file_path, 'wb') as dest:
-            for chunk in file.chunk():
+            for chunk in file:
                 dest.write(chunk)
 
     # Run Script
         process_path = os.path.join(settings.BASE_DIR, '../../test/main.py')
-        subprocess.run(args=[sys.executable, process_path])
+        # subprocess.run(args=[sys.executable, process_path])
 
-        return HttpResponse("", status=200)
+        return HttpResponse("OK", status=200)
     else:
         return HttpResponse(status=418, reason='Unsupported Media type')
