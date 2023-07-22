@@ -7,8 +7,13 @@ function changeFileBox() {
 }
 
 function uploadFile() {
-    var form = fileloadBtn.files[0];
-    var formData = new FormData();
+    const file_length = fileloadBtn.files.length;
+    if (file_length == 0) {
+        console.log("File Not Found!");
+        return;
+    }
+    const form = fileloadBtn.files[0];
+    const formData = new FormData();
     formData.append('file', form);
 
     const req = $.ajax({
