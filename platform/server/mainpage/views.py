@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from .models import UploadedFile
 
-ALLOWED_FILE_PROP = ['mp4', 'm4a']
+ALLOWED_FILE_PROP = ['mp4']
 
 # Create your views here.
 def main(req):
@@ -31,4 +31,4 @@ def recvFile(req):
 
         return HttpResponse("OK", status=200)
     else:
-        return HttpResponse(status=418)
+        return HttpResponse("|\\_/|\n|q p|   /}\n( 0 )\"\"\"\\\n|\"^\"`    |\n||_/=\\\\__|", status=418)
