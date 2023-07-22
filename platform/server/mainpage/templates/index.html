@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script defer src="/static/script.js"></script>
     <title>Document</title>
 </head>
+
 <body>
     <header>
         <img id="title" src="" alt="TITLE">
@@ -31,8 +32,8 @@
                   <option value="Eng">Eng</option>
                   <option value="Kor">Kor</option>
                 </select>
-              </form>
-            <input type="file" id="fileload-btn" accept='.m4a' />
+            </form>
+            <input type="file" id="fileload-btn" accept='.mp4' />
             <button id="upload-btn">UPLOAD : send to server</button>
             <button id="start-btn">ADD CAPTIONS</button>
             <button id="download-btn">DOWNLOAD</button>
@@ -43,4 +44,5 @@
     <footer>
 
     </footer>
+
 </html>
