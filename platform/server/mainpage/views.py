@@ -37,8 +37,9 @@ def recvFile(req):
         taskHandler()
         output_path = os.path.join(settings.BASE_DIR, '../../test/subtitle.srt')
         if os.path.exists(output_path):
-            res = FileResponse(open(output_path, 'rb'), content_type='text/plain')
+            res = FileResponse(open(output_path, 'rb'))
             res['Content-Disposition'] = 'attachment; filename="subtitle.srt"'
+            res['Content-Length'] = os.path.getsize(output_path)
             return res
 
         return HttpResponse(status=500)
