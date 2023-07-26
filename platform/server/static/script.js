@@ -18,17 +18,23 @@ function uploadFile() {
 
     const req = $.ajax({
         type: "POST",
-        url: "/upload",
+        url: "/process",
         processData: false,
         contentType: false,
         data: formData,
         success: function(rtn) {
-            console.log("rtn: ", rtn)
+            console.log("rtn: ", rtn);
+            const blob = new Blob([rtn]);
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'subtitle.srt';
+            a.click();
         },
         err: function(err) {
-            console.log("err:", err)
+            console.log("err:", err);
         }
-    })
+    });
 }
 
 $(document).ready(() => {
