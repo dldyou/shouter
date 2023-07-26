@@ -21,7 +21,7 @@ def list_to_srt(result):
         
         srt += str(i + 1) + "\n" + start_time + " --> " + end_time + "\n" + text + "\n\n"
     
-    srt_file = open(path, 'w')
+    srt_file = open(path, 'w', encoding='utf-8')
     srt_file.write(srt)
     srt_file.close()
     return srt
