@@ -23,4 +23,5 @@ def list_to_srt(result):
     
     srt_file = open(path, 'w')
     srt_file.write(srt)
+    srt_file.close()
     return srt

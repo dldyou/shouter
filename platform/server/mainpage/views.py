@@ -1,10 +1,18 @@
-import os, subprocess, sys
+import os, subprocess, sys, threading
+import asyncio
 from django.shortcuts import render
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from .models import UploadedFile
 
+
 ALLOWED_FILE_PROP = ['mp4']
+
+# Script handler
+def taskHandler():
+    print('start task')
+    process_path = os.path.join(settings.BASE_DIR, '../../test/main.py')
+    subprocess.run(args=[sys.executable, process_path])
 
 # Create your views here.
 def main(req):
@@ -25,10 +33,14 @@ def recvFile(req):
             for chunk in file:
                 dest.write(chunk)
 
-    # Run Script
-        process_path = os.path.join(settings.BASE_DIR, '../../test/main.py')
-        # subprocess.run(args=[sys.executable, process_path])
+    # Run Script 
+        taskHandler()
+        output_path = os.path.join(settings.BASE_DIR, '../../test/subtitle.srt')
+        if os.path.exists(output_path):
+            res = FileResponse(open(output_path, 'rb'), content_type='text/plain')
+            res['Content-Disposition'] = 'attachment; filename="subtitle.srt"'
+            return res
 
-        return HttpResponse("OK", status=200)
+        return HttpResponse(status=500)
     else:
         return HttpResponse("|\\_/|\n|q p|   /}\n( 0 )\"\"\"\\\n|\"^\"`    |\n||_/=\\\\__|", status=418)
