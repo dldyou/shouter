@@ -1,9 +1,37 @@
 const fileloadBtn = $("#fileload-btn")[0];
 const serverloadBtn = $("#upload-btn")[0]; // button for server
 const fileName = $("#file-name");
+const fileLen = $("#file-len");
+
+window.URL = window.URL || window.webkitURL;
+
+function changeTimeForm(sec) {
+    sec = Math.floor(sec);
+    const h = Math.floor(sec / 3600).toString().padStart(2, '0');
+    sec %= 3600;
+    const m = Math.floor(sec / 60).toString().padStart(2, '0');
+    sec %= 60;
+    const s = sec.toString().padStart(2, '0');
+
+    return h + ":" + m + ":" + s;
+}
 
 function changeFileBox() {
-    fileName.text(fileloadBtn.files[0].name);
+    const file = fileloadBtn.files[0];
+    const video = document.createElement("video");
+
+    video.src = window.URL.createObjectURL(file);
+    video.preload = "metadata";
+    video.onloadedmetadata = function() {
+        window.URL.revokeObjectURL(video.src);
+        if (video.duration < 1) {
+            console.log("Invalid Video! Need more than 1s.");
+            return;
+        }
+        fileLen.text(changeTimeForm(video.duration));
+    }
+
+    fileName.text(file.name);
 }
 
 function uploadFile() {
