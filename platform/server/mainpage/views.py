@@ -1,5 +1,5 @@
 import os, subprocess, sys, threading
-import asyncio
+from django.core.files.storage import default_storage
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse, FileResponse
@@ -8,10 +8,10 @@ from .models import UploadedFile
 ALLOWED_FILE_PROP = ['mp4']
 
 # Script handler
-def taskHandler():
+def taskHandler(key):
     print('start task')
-    process_path = os.path.join(settings.BASE_DIR, '../../test/main.py')
-    subprocess.run(args=[sys.executable, process_path])
+    process_path = default_storage.path('main.py')
+    subprocess.run(args=[sys.executable, process_path, key])
 
 # Create your views here.
 def main(req):
@@ -31,13 +31,15 @@ def recvFile(req):
             file=file
         )
         fileupload.save()
+        filekey = fileupload.key()
+        print(filekey)
 
     # Run Script 
-        taskHandler()
-        output_path = os.path.join(settings.BASE_DIR, '../../test/subtitle.srt')
+        taskHandler(filekey)
+        output_path = os.path.join(settings.BASE_DIR, f'{filekey}.srt')
         if os.path.exists(output_path):
             res = FileResponse(open(output_path, 'rb'))
-            res['Content-Disposition'] = 'attachment; filename="subtitle.srt"'
+            res['Content-Disposition'] = f'attachment; filename="{filekey}.srt"'
             res['Content-Length'] = os.path.getsize(output_path)
             return res
 

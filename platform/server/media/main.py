@@ -85,7 +85,7 @@ def main():
     # file upload to hdfs like audio0.mp3, audio1.mp3, ..., audio{n}.mp3
     upload.file_processing(key)
     # file read from hdfs 
-    audio_files = hdfsPath.get_path()
+    audio_files = hdfsPath.get_path(key)
     # set RDD 
     audio_files_rdd = sctx.parallelize(audio_files)
     # Map (apply subtitle.get_subtitle() for every audio{n}.mp3 files)

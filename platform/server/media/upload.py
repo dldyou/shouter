@@ -33,10 +33,11 @@ def file_processing(key):
             break
         
         filepath = os.path.dirname(os.path.realpath(__file__)) + '/' + filename
-        hdfs_client.upload("/data/", filepath, overwrite=True)
+        hdfs_client.makedirs(f'/data/{key}')
+        hdfs_client.upload(f'/data/{key}/', filepath, overwrite=True)
         
         #check upload status
-        upload_stat = hdfs_client.status(f'/data/{filename}')
+        upload_stat = hdfs_client.status(f'/data/{key}/{filename}')
         print(upload_stat)
         
         cnt += 1
