@@ -36,8 +36,8 @@ def recvFile(req):
 
     # Run Script 
         taskHandler(filekey)
-        output_path = os.path.join(settings.BASE_DIR, f'{filekey}.srt')
-        if os.path.exists(output_path):
+        output_path = default_storage.path(f'{filekey}.srt')
+        if default_storage.exists(f'{filekey}.srt'):
             res = FileResponse(open(output_path, 'rb'))
             res['Content-Disposition'] = f'attachment; filename="{filekey}.srt"'
             res['Content-Length'] = os.path.getsize(output_path)
