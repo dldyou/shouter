@@ -5,7 +5,6 @@ from django.conf import settings
 from django.http import HttpResponse, FileResponse
 from .models import UploadedFile
 
-
 ALLOWED_FILE_PROP = ['mp4']
 
 # Script handler
@@ -25,13 +24,13 @@ def recvFile(req):
         file_prop = file.name.split('.')[-1].lower()
         if file_prop not in ALLOWED_FILE_PROP:
             return HttpResponse(status=415, reason='Unsupported Media type')
-        # uploaded_file = UploadedFile.objects.create(file=file)
 
     # Save file        
-        file_path = os.path.join(settings.BASE_DIR, '../../test/sample2.mp4')
-        with open(file_path, 'wb') as dest:
-            for chunk in file:
-                dest.write(chunk)
+        fileupload = UploadedFile(
+            title='sample.mp4',
+            file=file
+        )
+        fileupload.save()
 
     # Run Script 
         taskHandler()
