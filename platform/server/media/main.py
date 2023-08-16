@@ -17,7 +17,7 @@ from hdfs import HdfsError
 # get title for mp3 file
 def get_subtitle(path):
     # get model
-    sel_model = "tiny"
+    sel_model = "small"
     model = ws.load_model(sel_model)
     
     # get audio and trim it
